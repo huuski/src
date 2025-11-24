@@ -1,0 +1,24 @@
+### Exemplo de atualização de ExecutionFlow
+### Endpoint: PUT /api/executionflow/{id}
+
+PUT http://localhost:5026/api/executionflow/b50e8400-e29b-41d4-a716-446655440001
+Content-Type: application/json
+
+{
+  "title": "Questionário completo de exemplo - Atualizado",
+  "flow": "{\"steps\":[{\"id\":\"step-1\",\"title\":\"Etapa 1 - Informações básicas\",\"subtitle\":\"Dados pessoais e de contato\",\"description\":\"Coleta de informações básicas do cliente\",\"stepNumber\":1,\"questions\":[{\"id\":\"q-1-1\",\"order\":1,\"title\":\"Nome completo\",\"subtitle\":\"Digite seu nome completo\",\"description\":\"Informe seu nome completo como consta no documento\",\"type\":1,\"options\":[],\"maxLength\":255,\"required\":true},{\"id\":\"q-1-2\",\"order\":2,\"title\":\"Email\",\"subtitle\":\"Seu endereço de email\",\"description\":\"Email para contato e comunicação\",\"type\":1,\"options\":[],\"maxLength\":100,\"required\":true},{\"id\":\"q-1-3\",\"order\":3,\"title\":\"Observações gerais\",\"subtitle\":\"Informações adicionais\",\"description\":\"Descreva qualquer informação adicional que considere relevante\",\"type\":2,\"options\":[],\"maxLength\":1000,\"required\":false}]},{\"id\":\"step-2\",\"title\":\"Etapa 2 - Seleção única\",\"subtitle\":\"Escolha uma opção\",\"description\":\"Perguntas com seleção única (radio buttons)\",\"stepNumber\":2,\"questions\":[{\"id\":\"q-2-1\",\"order\":1,\"title\":\"Qual é o seu gênero?\",\"subtitle\":\"Selecione uma opção\",\"description\":\"Informe seu gênero\",\"type\":3,\"options\":[{\"id\":\"opt-2-1-1\",\"title\":\"Masculino\",\"value\":\"masculino\",\"enableExtraAnswer\":false},{\"id\":\"opt-2-1-2\",\"title\":\"Feminino\",\"value\":\"feminino\",\"enableExtraAnswer\":false},{\"id\":\"opt-2-1-3\",\"title\":\"Outro\",\"value\":\"outro\",\"enableExtraAnswer\":true,\"extraAnswerMaxLength\":100},{\"id\":\"opt-2-1-4\",\"title\":\"Prefiro não informar\",\"value\":\"nao_informar\",\"enableExtraAnswer\":false}],\"required\":true}]},{\"id\":\"step-3\",\"title\":\"Etapa 3 - Seleção múltipla\",\"subtitle\":\"Escolha várias opções\",\"description\":\"Perguntas com seleção múltipla (checkboxes)\",\"stepNumber\":3,\"questions\":[{\"id\":\"q-3-1\",\"order\":1,\"title\":\"Quais serviços você tem interesse?\",\"subtitle\":\"Selecione todas as opções que se aplicam\",\"description\":\"Marque todos os serviços que despertam seu interesse\",\"type\":4,\"options\":[{\"id\":\"opt-3-1-1\",\"title\":\"Consulta médica\",\"value\":\"consulta_medica\",\"enableExtraAnswer\":false},{\"id\":\"opt-3-1-2\",\"title\":\"Exames laboratoriais\",\"value\":\"exames_lab\",\"enableExtraAnswer\":false},{\"id\":\"opt-3-1-3\",\"title\":\"Tratamento estético\",\"value\":\"estetico\",\"enableExtraAnswer\":true,\"extraAnswerMaxLength\":300}],\"required\":true}]},{\"id\":\"step-4\",\"title\":\"Etapa 4 - Upload de imagens\",\"subtitle\":\"Envio de fotos\",\"description\":\"Perguntas que requerem upload de imagens\",\"stepNumber\":4,\"questions\":[{\"id\":\"q-4-1\",\"order\":1,\"title\":\"Envie uma foto de identificação\",\"subtitle\":\"Documento com foto\",\"description\":\"Faça upload de uma foto do seu documento de identificação (RG, CNH, etc.)\",\"type\":5,\"options\":[],\"maxImages\":1,\"acceptedImageTypes\":[\"image/jpeg\",\"image/png\"],\"required\":true},{\"id\":\"q-4-2\",\"order\":2,\"title\":\"Envie fotos do local\",\"subtitle\":\"Máximo de 5 fotos\",\"description\":\"Envie fotos do local onde será realizado o procedimento (máximo 5 fotos)\",\"type\":5,\"options\":[],\"maxImages\":5,\"acceptedImageTypes\":[\"image/jpeg\",\"image/png\",\"image/webp\"],\"required\":false}]}]}"
+}
+
+###
+
+### Exemplo simplificado (JSON formatado para melhor leitura)
+PUT http://localhost:5026/api/executionflow/b50e8400-e29b-41d4-a716-446655440001
+Content-Type: application/json
+
+{
+  "title": "Fluxo de Execução - Consulta Médica",
+  "flow": "{\"steps\":[{\"id\":\"step-1\",\"title\":\"Anamnese Inicial\",\"subtitle\":\"Dados do paciente\",\"description\":\"Coleta de informações básicas\",\"stepNumber\":1,\"questions\":[{\"id\":\"q-1-1\",\"order\":1,\"title\":\"Qual é o motivo principal da consulta?\",\"subtitle\":\"Descreva o motivo\",\"description\":\"Informe o motivo principal\",\"type\":1,\"options\":[],\"maxLength\":500,\"required\":true}]}]}"
+}
+
+###
+

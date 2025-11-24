@@ -1,0 +1,15 @@
+/Users/huuski/projects/src/ApplicationLayer/bin/Debug/net9.0/ApplicationLayer.deps.json
+/Users/huuski/projects/src/ApplicationLayer/bin/Debug/net9.0/ApplicationLayer.dll
+/Users/huuski/projects/src/ApplicationLayer/bin/Debug/net9.0/ApplicationLayer.pdb
+/Users/huuski/projects/src/ApplicationLayer/bin/Debug/net9.0/DomainLayer.dll
+/Users/huuski/projects/src/ApplicationLayer/bin/Debug/net9.0/DomainLayer.pdb
+/Users/huuski/projects/src/ApplicationLayer/obj/Debug/net9.0/ApplicationLayer.csproj.AssemblyReference.cache
+/Users/huuski/projects/src/ApplicationLayer/obj/Debug/net9.0/ApplicationLayer.GeneratedMSBuildEditorConfig.editorconfig
+/Users/huuski/projects/src/ApplicationLayer/obj/Debug/net9.0/ApplicationLayer.AssemblyInfoInputs.cache
+/Users/huuski/projects/src/ApplicationLayer/obj/Debug/net9.0/ApplicationLayer.AssemblyInfo.cs
+/Users/huuski/projects/src/ApplicationLayer/obj/Debug/net9.0/ApplicationLayer.csproj.CoreCompileInputs.cache
+/Users/huuski/projects/src/ApplicationLayer/obj/Debug/net9.0/Applicat.033E422A.Up2Date
+/Users/huuski/projects/src/ApplicationLayer/obj/Debug/net9.0/ApplicationLayer.dll
+/Users/huuski/projects/src/ApplicationLayer/obj/Debug/net9.0/refint/ApplicationLayer.dll
+/Users/huuski/projects/src/ApplicationLayer/obj/Debug/net9.0/ApplicationLayer.pdb
+/Users/huuski/projects/src/ApplicationLayer/obj/Debug/net9.0/ref/ApplicationLayer.dll

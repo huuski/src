@@ -1,0 +1,44 @@
+### Test Email Endpoints
+### Use este arquivo para testar o envio de emails
+
+@baseUrl = http://localhost:5026
+@email = seu-email@gmail.com
+
+### 1. Testar envio de email simples (sem anexo)
+POST {{baseUrl}}/api/TestEmail/send-test-email
+Content-Type: application/json
+
+{
+  "to": "{{email}}",
+  "subject": "Teste de Email - Sistema",
+  "body": "<h1>Email de Teste</h1><p>Este é um email de teste enviado pelo sistema.</p>"
+}
+
+### 2. Testar envio de email com PDF anexado
+POST {{baseUrl}}/api/TestEmail/send-test-email-with-pdf
+Content-Type: application/json
+
+{
+  "to": "{{email}}",
+  "subject": "Teste de Email com PDF",
+  "body": "<h1>Email de Teste com PDF</h1><p>Este email contém um PDF de teste anexado.</p>"
+}
+
+### 3. Testar envio de PDF de uma negociação real
+### Primeiro, obtenha um ID de negociação válido
+GET {{baseUrl}}/api/Negotiation
+
+### Depois, envie o PDF por email
+POST {{baseUrl}}/api/Negotiation/f50e8400-e29b-41d4-a716-446655440001/send-pdf-email
+Content-Type: application/json
+
+{
+  "email": "{{email}}"
+}
+
+### 4. Testar envio usando email do customer (sem especificar email no body)
+POST {{baseUrl}}/api/Negotiation/f50e8400-e29b-41d4-a716-446655440001/send-pdf-email
+Content-Type: application/json
+
+{}
+

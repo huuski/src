@@ -1,0 +1,135 @@
+### Exemplos de chamadas à API de Negotiation
+### Base URL: http://localhost:5026 ou https://localhost:7115
+
+### 1. POST - Criar uma negociação com 2 itens (Produto e Serviço)
+POST http://localhost:5026/api/Negotiation
+Content-Type: application/json
+
+{
+  "customerId": "550e8400-e29b-41d4-a716-446655440001",
+  "userId": "750e8400-e29b-41d4-a716-446655440001",
+  "expirationDate": "2025-12-31T23:59:59Z",
+  "grossValue": 350.00,
+  "netValue": 320.00,
+  "discountValue": 30.00,
+  "items": [
+    {
+      "type": 2,
+      "quantity": 2,
+      "grossValueUnit": 100.00,
+      "netValue": 180.00,
+      "discountValue": 20.00
+    },
+    {
+      "type": 0,
+      "quantity": 1,
+      "grossValueUnit": 150.00,
+      "netValue": 140.00,
+      "discountValue": 10.00
+    }
+  ]
+}
+
+###
+
+### 2. POST - Criar uma negociação simples sem itens
+POST http://localhost:5026/api/Negotiation
+Content-Type: application/json
+
+{
+  "customerId": "550e8400-e29b-41d4-a716-446655440001",
+  "userId": "750e8400-e29b-41d4-a716-446655440001",
+  "expirationDate": "2025-12-31T23:59:59Z",
+  "grossValue": 1000.00,
+  "netValue": 900.00,
+  "discountValue": 100.00,
+  "items": []
+}
+
+###
+
+### 3. POST - Criar uma negociação com pacote e produto
+POST http://localhost:5026/api/Negotiation
+Content-Type: application/json
+
+{
+  "customerId": "550e8400-e29b-41d4-a716-446655440002",
+  "userId": "750e8400-e29b-41d4-a716-446655440002",
+  "expirationDate": "2025-12-31T23:59:59Z",
+  "grossValue": 1250.00,
+  "netValue": 1125.00,
+  "discountValue": 125.00,
+  "items": [
+    {
+      "type": 1,
+      "quantity": 1,
+      "grossValueUnit": 800.00,
+      "netValue": 720.00,
+      "discountValue": 80.00
+    },
+    {
+      "type": 2,
+      "quantity": 3,
+      "grossValueUnit": 150.00,
+      "netValue": 405.00,
+      "discountValue": 45.00
+    }
+  ]
+}
+
+###
+
+### 4. GET - Obter negociação por ID
+GET http://localhost:5026/api/Negotiation/00000000-0000-0000-0000-000000000000
+Content-Type: application/json
+
+###
+
+### 5. GET - Obter negociação por código
+GET http://localhost:5026/api/Negotiation/code/ABCD123456
+Content-Type: application/json
+
+###
+
+### 6. GET - Listar todas as negociações
+GET http://localhost:5026/api/Negotiation
+Content-Type: application/json
+
+###
+
+### 7. GET - Listar negociações por cliente
+GET http://localhost:5026/api/Negotiation/customer/550e8400-e29b-41d4-a716-446655440001
+Content-Type: application/json
+
+###
+
+### 8. GET - Listar negociações por usuário
+GET http://localhost:5026/api/Negotiation/user/750e8400-e29b-41d4-a716-446655440001
+Content-Type: application/json
+
+###
+
+### 9. PUT - Atualizar uma negociação
+PUT http://localhost:5026/api/Negotiation/00000000-0000-0000-0000-000000000000
+Content-Type: application/json
+
+{
+  "expirationDate": "2026-01-31T23:59:59Z",
+  "grossValue": 1500.00,
+  "netValue": 1350.00,
+  "discountValue": 150.00
+}
+
+###
+
+### 10. DELETE - Deletar uma negociação
+DELETE http://localhost:5026/api/Negotiation/00000000-0000-0000-0000-000000000000
+Content-Type: application/json
+
+###
+
+### Valores do enum NegotiationItemType:
+### 0 = Service
+### 1 = Package
+### 2 = Product
+

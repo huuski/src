@@ -1,0 +1,70 @@
+### Exemplos de chamadas à API de Product
+### Base URL: http://localhost:5026 ou https://localhost:7115
+
+### 1. GET - Listar todos os produtos
+GET http://localhost:5026/api/Product
+Content-Type: application/json
+
+###
+
+### 2. GET - Obter produto por ID
+GET http://localhost:5026/api/Product/00000000-0000-0000-0000-000000000000
+Content-Type: application/json
+
+###
+
+### 3. POST - Criar um novo produto
+POST http://localhost:5026/api/Product
+Content-Type: application/json
+
+{
+  "name": "Creme Hidratante Facial",
+  "description": "Creme hidratante para pele seca com vitamina E",
+  "category": 0,
+  "amount": 89.90,
+  "image": "https://example.com/images/creme-hidratante.jpg"
+}
+
+###
+
+### 4. POST - Criar outro produto (Medication)
+POST http://localhost:5026/api/Product
+Content-Type: application/json
+
+{
+  "name": "Vitamina C 1000mg",
+  "description": "Suplemento de vitamina C em comprimidos",
+  "category": 2,
+  "amount": 45.50,
+  "image": null
+}
+
+###
+
+### 5. PUT - Atualizar um produto
+PUT http://localhost:5026/api/Product/00000000-0000-0000-0000-000000000000
+Content-Type: application/json
+
+{
+  "name": "Creme Hidratante Facial Premium",
+  "description": "Creme hidratante premium para pele seca com vitamina E e ácido hialurônico",
+  "category": 0,
+  "amount": 129.90,
+  "image": "https://example.com/images/creme-hidratante-premium.jpg"
+}
+
+###
+
+### 6. DELETE - Deletar um produto
+DELETE http://localhost:5026/api/Product/00000000-0000-0000-0000-000000000000
+Content-Type: application/json
+
+###
+
+### Valores do enum ProductCategory:
+### 0 = Cosmetic
+### 1 = Medication
+### 2 = Supplement
+### 3 = Equipment
+### 4 = Other
+

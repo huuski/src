@@ -1,0 +1,58 @@
+### Exemplo de atualização de Service
+### Endpoint: PUT /api/service/{id}
+
+### Exemplo 1: Atualizar Consulta Médica
+PUT http://localhost:5026/api/service/a50e8400-e29b-41d4-a716-446655440001
+Content-Type: application/json
+
+{
+  "name": "Consulta Médica Geral - Atualizado",
+  "description": "Consulta médica geral com especialista, incluindo avaliação completa e orientações personalizadas",
+  "category": 0,
+  "amount": 280.00,
+  "image": "https://example.com/images/consulta-medica-atualizada.jpg",
+  "duration": "00:30:00",
+  "executionFlowId": "b50e8400-e29b-41d4-a716-446655440001"
+}
+
+### Exemplo 2: Atualizar Limpeza de Pele
+PUT http://localhost:5026/api/service/a50e8400-e29b-41d4-a716-446655440002
+Content-Type: application/json
+
+{
+  "name": "Limpeza de Pele Profunda",
+  "description": "Limpeza de pele profunda com extração de cravos e espinhas, máscara hidratante e protetor solar",
+  "category": 1,
+  "amount": 200.00,
+  "image": "https://example.com/images/limpeza-pele-profunda.jpg",
+  "duration": "01:30:00",
+  "executionFlowId": "b50e8400-e29b-41d4-a716-446655440002"
+}
+
+### Exemplo 3: Atualizar Massagem Relaxante (sem ExecutionFlowId)
+PUT http://localhost:5026/api/service/a50e8400-e29b-41d4-a716-446655440003
+Content-Type: application/json
+
+{
+  "name": "Massagem Relaxante Premium",
+  "description": "Massagem relaxante premium de 90 minutos com óleos essenciais",
+  "category": 2,
+  "amount": 180.00,
+  "image": "https://example.com/images/massagem-relaxante.jpg",
+  "duration": "01:30:00",
+  "executionFlowId": null
+}
+
+### Exemplo 4: Atualização mínima (sem campos opcionais)
+PUT http://localhost:5026/api/service/a50e8400-e29b-41d4-a716-446655440001
+Content-Type: application/json
+
+{
+  "name": "Consulta Médica",
+  "description": "Consulta médica geral",
+  "category": 0,
+  "amount": 250.00,
+  "duration": "00:30:00"
+}
+
+###

@@ -1,0 +1,69 @@
+### Exemplos de chamadas à API de Autenticação
+### Base URL: http://localhost:5026 ou https://localhost:7115
+
+### 1. LOGIN - Autenticar usuário (João Silva)
+POST http://localhost:5026/api/Auth/login
+Content-Type: application/json
+
+{
+  "email": "joao.silva@example.com",
+  "password": "Senha123!"
+}
+
+###
+
+### 2. LOGIN - Autenticar usuário (Maria Santos)
+POST http://localhost:5026/api/Auth/login
+Content-Type: application/json
+
+{
+  "email": "maria.santos@example.com",
+  "password": "Senha456!"
+}
+
+###
+
+### 3. REFRESH TOKEN - Renovar token de acesso
+### Substitua {refreshToken} pelo token retornado no login
+POST http://localhost:5026/api/Auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{refreshToken}"
+}
+
+###
+
+### 4. RESET PASSWORD - Redefinir senha
+POST http://localhost:5026/api/Auth/resetpassword
+Content-Type: application/json
+
+{
+  "email": "joao.silva@example.com",
+  "newPassword": "NovaSenha123!",
+  "resetToken": null
+}
+
+###
+
+### 5. LOGIN - Teste com credenciais inválidas (deve retornar 401)
+POST http://localhost:5026/api/Auth/login
+Content-Type: application/json
+
+{
+  "email": "usuario.inexistente@example.com",
+  "password": "SenhaErrada123!"
+}
+
+###
+
+### USUÁRIOS PADRÃO DO SISTEMA:
+### 
+### Usuário 1:
+###   Email: joao.silva@example.com
+###   Senha: Senha123!
+### 
+### Usuário 2:
+###   Email: maria.santos@example.com
+###   Senha: Senha456!
+

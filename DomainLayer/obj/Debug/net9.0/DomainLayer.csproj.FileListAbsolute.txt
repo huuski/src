@@ -1,0 +1,11 @@
+/Users/huuski/projects/src/DomainLayer/bin/Debug/net9.0/DomainLayer.deps.json
+/Users/huuski/projects/src/DomainLayer/bin/Debug/net9.0/DomainLayer.dll
+/Users/huuski/projects/src/DomainLayer/bin/Debug/net9.0/DomainLayer.pdb
+/Users/huuski/projects/src/DomainLayer/obj/Debug/net9.0/DomainLayer.GeneratedMSBuildEditorConfig.editorconfig
+/Users/huuski/projects/src/DomainLayer/obj/Debug/net9.0/DomainLayer.AssemblyInfoInputs.cache
+/Users/huuski/projects/src/DomainLayer/obj/Debug/net9.0/DomainLayer.AssemblyInfo.cs
+/Users/huuski/projects/src/DomainLayer/obj/Debug/net9.0/DomainLayer.csproj.CoreCompileInputs.cache
+/Users/huuski/projects/src/DomainLayer/obj/Debug/net9.0/DomainLayer.dll
+/Users/huuski/projects/src/DomainLayer/obj/Debug/net9.0/refint/DomainLayer.dll
+/Users/huuski/projects/src/DomainLayer/obj/Debug/net9.0/DomainLayer.pdb
+/Users/huuski/projects/src/DomainLayer/obj/Debug/net9.0/ref/DomainLayer.dll
