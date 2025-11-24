@@ -10,9 +10,8 @@ public class CreateAppointmentDto
     [JsonPropertyName("customerId")]
     public Guid CustomerId { get; set; }
     
-    [Required]
     [JsonPropertyName("userId")]
-    public Guid UserId { get; set; }
+    public Guid? UserId { get; set; }
     
     [Required]
     [JsonPropertyName("initDate")]

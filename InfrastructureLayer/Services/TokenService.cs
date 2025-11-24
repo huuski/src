@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using ApplicationLayer.Interfaces.Repositories;
 using ApplicationLayer.Interfaces.Services;
 using DomainLayer.Entities;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +13,7 @@ namespace InfrastructureLayer.Services;
 public class TokenService : ITokenService
 {
     private readonly IConfiguration _configuration;
+    private readonly IRefreshTokenRepository _refreshTokenRepository;
     private readonly JwtSecurityTokenHandler _tokenHandler;
     private readonly string _secretKey;
     private readonly string _issuer;
@@ -19,9 +21,10 @@ public class TokenService : ITokenService
     private readonly int _accessTokenExpirationMinutes;
     private readonly int _refreshTokenExpirationDays;
 
-    public TokenService(IConfiguration configuration)
+    public TokenService(IConfiguration configuration, IRefreshTokenRepository refreshTokenRepository)
     {
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+        _refreshTokenRepository = refreshTokenRepository ?? throw new ArgumentNullException(nameof(refreshTokenRepository));
         _tokenHandler = new JwtSecurityTokenHandler();
         _secretKey = _configuration["Jwt:SecretKey"] ?? throw new InvalidOperationException("Jwt:SecretKey is not configured");
         _issuer = _configuration["Jwt:Issuer"] ?? "default-issuer";
@@ -30,29 +33,36 @@ public class TokenService : ITokenService
         _refreshTokenExpirationDays = int.Parse(_configuration["Jwt:RefreshTokenExpirationDays"] ?? "7");
     }
 
-    public TokenResult GenerateTokens(User user)
+    public async Task<TokenResult> GenerateTokensAsync(User user, CancellationToken cancellationToken = default)
     {
         var accessToken = GenerateAccessToken(user);
-        var refreshToken = GenerateRefreshToken(user.Id);
+        var refreshTokenString = GenerateRefreshTokenString(user.Id);
+        var refreshTokenExpiresAt = DateTime.UtcNow.AddDays(_refreshTokenExpirationDays);
+
+        // Store refresh token in repository
+        var refreshToken = new RefreshToken(user.Id, refreshTokenString, refreshTokenExpiresAt);
+        await _refreshTokenRepository.CreateAsync(refreshToken, cancellationToken);
 
         return new TokenResult
         {
             AccessToken = _tokenHandler.WriteToken(accessToken),
-            RefreshToken = refreshToken,
+            RefreshToken = refreshTokenString,
             ExpiresAt = accessToken.ValidTo
         };
     }
 
-    public string? ValidateRefreshToken(string refreshToken)
+    public async Task<string?> ValidateRefreshTokenAsync(string refreshToken, CancellationToken cancellationToken = default)
     {
+        if (string.IsNullOrWhiteSpace(refreshToken))
+            return null;
+
         try
         {
+            // First, validate the token signature and structure
             var tokenParts = refreshToken.Split('.');
             if (tokenParts.Length != 3)
                 return null;
 
-            // Simple validation - in production, you should store refresh tokens in a database
-            // and validate them properly. For now, we'll decode and validate the signature
             var handler = new JwtSecurityTokenHandler();
             var validationParameters = new TokenValidationParameters
             {
@@ -68,13 +78,16 @@ public class TokenService : ITokenService
 
             var principal = handler.ValidateToken(refreshToken, validationParameters, out var validatedToken);
             
-            if (validatedToken is JwtSecurityToken jwtToken)
-            {
-                var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == "userId" || c.Type == ClaimTypes.NameIdentifier)?.Value;
-                return userId;
-            }
+            if (validatedToken is not JwtSecurityToken jwtToken)
+                return null;
 
-            return null;
+            // Check if token exists in repository and is active
+            var storedToken = await _refreshTokenRepository.GetByTokenAsync(refreshToken, cancellationToken);
+            if (storedToken == null || !storedToken.IsActive)
+                return null;
+
+            var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == "userId" || c.Type == ClaimTypes.NameIdentifier)?.Value;
+            return userId;
         }
         catch
         {
@@ -141,7 +154,7 @@ public class TokenService : ITokenService
         return token;
     }
 
-    private string GenerateRefreshToken(Guid userId)
+    private string GenerateRefreshTokenString(Guid userId)
     {
         var claims = new List<Claim>
         {

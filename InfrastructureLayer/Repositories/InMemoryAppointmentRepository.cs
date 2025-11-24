@@ -31,12 +31,15 @@ public class InMemoryAppointmentRepository : IAppointmentRepository
                     }
                     customerAppointments.Add(appointment);
 
-                    if (!_appointmentsByUserId.TryGetValue(appointment.UserId, out var userAppointments))
+                    if (appointment.UserId.HasValue)
                     {
-                        userAppointments = new List<Appointment>();
-                        _appointmentsByUserId[appointment.UserId] = userAppointments;
+                        if (!_appointmentsByUserId.TryGetValue(appointment.UserId.Value, out var userAppointments))
+                        {
+                            userAppointments = new List<Appointment>();
+                            _appointmentsByUserId[appointment.UserId.Value] = userAppointments;
+                        }
+                        userAppointments.Add(appointment);
                     }
-                    userAppointments.Add(appointment);
                     appointmentsLoaded = true;
                 }
                 catch
@@ -69,12 +72,15 @@ public class InMemoryAppointmentRepository : IAppointmentRepository
                 }
                 customerAppointments.Add(appointment);
 
-                if (!_appointmentsByUserId.TryGetValue(appointment.UserId, out var userAppointments))
+                if (appointment.UserId.HasValue)
                 {
-                    userAppointments = new List<Appointment>();
-                    _appointmentsByUserId[appointment.UserId] = userAppointments;
+                    if (!_appointmentsByUserId.TryGetValue(appointment.UserId.Value, out var userAppointments))
+                    {
+                        userAppointments = new List<Appointment>();
+                        _appointmentsByUserId[appointment.UserId.Value] = userAppointments;
+                    }
+                    userAppointments.Add(appointment);
                 }
-                userAppointments.Add(appointment);
             }
             catch
             {
@@ -86,7 +92,7 @@ public class InMemoryAppointmentRepository : IAppointmentRepository
     private void InitializeDefaultAppointments()
     {
         var customerId1 = new Guid("550e8400-e29b-41d4-a716-446655440001");
-        var userId1 = new Guid("850e8400-e29b-41d4-a716-446655440001");
+        Guid? userId1 = null;
         
         var appointment1Id = new Guid("750e8400-e29b-41d4-a716-446655440001");
         var appointment1 = new Appointment(
@@ -103,21 +109,6 @@ public class InMemoryAppointmentRepository : IAppointmentRepository
         }
         _appointments[appointment1.Id] = appointment1;
         AddToIndexes(appointment1);
-
-        var appointment2Id = new Guid("750e8400-e29b-41d4-a716-446655440002");
-        var appointment2 = new Appointment(
-            new Guid("550e8400-e29b-41d4-a716-446655440002"),
-            userId1,
-            new DateTime(2025, 12, 15, 14, 0, 0, DateTimeKind.Utc),
-            new DateTime(2025, 12, 15, 15, 30, 0, DateTimeKind.Utc),
-            DomainLayer.Enums.AppointmentStatus.Scheduled
-        );
-        if (idProperty != null && idProperty.CanWrite)
-        {
-            idProperty.SetValue(appointment2, appointment2Id);
-        }
-        _appointments[appointment2.Id] = appointment2;
-        AddToIndexes(appointment2);
     }
 
     private void AddToIndexes(Appointment appointment)
@@ -129,12 +120,15 @@ public class InMemoryAppointmentRepository : IAppointmentRepository
         }
         customerAppointments.Add(appointment);
 
-        if (!_appointmentsByUserId.TryGetValue(appointment.UserId, out var userAppointments))
+        if (appointment.UserId.HasValue)
         {
-            userAppointments = new List<Appointment>();
-            _appointmentsByUserId[appointment.UserId] = userAppointments;
+            if (!_appointmentsByUserId.TryGetValue(appointment.UserId.Value, out var userAppointments))
+            {
+                userAppointments = new List<Appointment>();
+                _appointmentsByUserId[appointment.UserId.Value] = userAppointments;
+            }
+            userAppointments.Add(appointment);
         }
-        userAppointments.Add(appointment);
     }
 
     public Task<Appointment?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
@@ -198,12 +192,15 @@ public class InMemoryAppointmentRepository : IAppointmentRepository
             }
             customerAppointments.Add(appointment);
 
-            if (!_appointmentsByUserId.TryGetValue(appointment.UserId, out var userAppointments))
+            if (appointment.UserId.HasValue)
             {
-                userAppointments = new List<Appointment>();
-                _appointmentsByUserId[appointment.UserId] = userAppointments;
+                if (!_appointmentsByUserId.TryGetValue(appointment.UserId.Value, out var userAppointments))
+                {
+                    userAppointments = new List<Appointment>();
+                    _appointmentsByUserId[appointment.UserId.Value] = userAppointments;
+                }
+                userAppointments.Add(appointment);
             }
-            userAppointments.Add(appointment);
 
             return Task.FromResult(appointment);
         }

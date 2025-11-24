@@ -65,7 +65,7 @@ public class InMemoryServiceRepository : IServiceRepository
             DomainLayer.Enums.ServiceCategory.Aesthetical,
             180.00m,
             TimeSpan.FromHours(1),
-            "https://example.com/images/limpeza-pele.jpg",
+            "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&h=600&fit=crop&q=80",
             new Guid("b50e8400-e29b-41d4-a716-446655440001")
         );
         if (idProperty != null && idProperty.CanWrite)
@@ -82,7 +82,7 @@ public class InMemoryServiceRepository : IServiceRepository
             DomainLayer.Enums.ServiceCategory.Aesthetical,
             450.00m,
             TimeSpan.FromMinutes(30),
-            "https://example.com/images/botox.jpg",
+            "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&h=600&fit=crop&q=80",
             new Guid("b50e8400-e29b-41d4-a716-446655440002")
         );
         if (idProperty != null && idProperty.CanWrite)
@@ -99,7 +99,7 @@ public class InMemoryServiceRepository : IServiceRepository
             DomainLayer.Enums.ServiceCategory.Aesthetical,
             650.00m,
             TimeSpan.FromMinutes(45),
-            "https://example.com/images/preenchimento-facial.jpg",
+            "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&h=600&fit=crop&q=80",
             new Guid("b50e8400-e29b-41d4-a716-446655440003")
         );
         if (idProperty != null && idProperty.CanWrite)
@@ -116,7 +116,7 @@ public class InMemoryServiceRepository : IServiceRepository
             DomainLayer.Enums.ServiceCategory.Aesthetical,
             320.00m,
             TimeSpan.FromMinutes(60),
-            "https://example.com/images/peeling-quimico.jpg",
+            "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=800&h=600&fit=crop&q=80",
             new Guid("b50e8400-e29b-41d4-a716-446655440004")
         );
         if (idProperty != null && idProperty.CanWrite)
@@ -133,7 +133,7 @@ public class InMemoryServiceRepository : IServiceRepository
             DomainLayer.Enums.ServiceCategory.Aesthetical,
             280.00m,
             TimeSpan.FromMinutes(45),
-            "https://example.com/images/depilacao-laser.jpg",
+            "https://images.unsplash.com/photo-1556228720-da4c4e8f4a2b?w=800&h=600&fit=crop&q=80",
             new Guid("b50e8400-e29b-41d4-a716-446655440005")
         );
         if (idProperty != null && idProperty.CanWrite)

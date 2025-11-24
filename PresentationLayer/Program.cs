@@ -108,6 +108,7 @@ builder.Services.AddSingleton<IExecutionFlowStepRepository>(sp => new InMemoryEx
 builder.Services.AddSingleton<IExecutionFlowStepItemRepository>(sp => new InMemoryExecutionFlowStepItemRepository(sp.GetRequiredService<SeedDataService>()));
 builder.Services.AddSingleton<IExecutionFlowItemOptionRepository>(sp => new InMemoryExecutionFlowItemOptionRepository(sp.GetRequiredService<SeedDataService>()));
 builder.Services.AddSingleton<ISupplyRepository>(sp => new InMemorySupplyRepository(sp.GetRequiredService<SeedDataService>()));
+builder.Services.AddSingleton<IRefreshTokenRepository, InMemoryRefreshTokenRepository>();
 
 // Add logging
 builder.Services.AddLogging();

@@ -5,7 +5,7 @@ namespace DomainLayer.Entities;
 public class Appointment : Entity
 {
     public Guid CustomerId { get; private set; }
-    public Guid UserId { get; private set; }
+    public Guid? UserId { get; private set; }
     public DateTime InitDate { get; private set; }
     public DateTime EndDate { get; private set; }
     public TimeSpan Duration => EndDate - InitDate;
@@ -18,7 +18,7 @@ public class Appointment : Entity
 
     public Appointment(
         Guid customerId,
-        Guid userId,
+        Guid? userId,
         DateTime initDate,
         DateTime endDate,
         AppointmentStatus status = AppointmentStatus.Scheduled)
@@ -36,13 +36,19 @@ public class Appointment : Entity
     public void Update(
         DateTime initDate,
         DateTime endDate,
-        AppointmentStatus? status = null)
+        AppointmentStatus? status = null,
+        Guid? userId = null)
     {
         InitDate = initDate;
         EndDate = endDate;
         if (status.HasValue)
         {
             Status = status.Value;
+        }
+
+        if (userId.HasValue)
+        {
+            UserId = userId.Value;
         }
 
         Validate();
@@ -60,8 +66,8 @@ public class Appointment : Entity
         if (CustomerId == Guid.Empty)
             throw new ArgumentException("CustomerId cannot be empty", nameof(CustomerId));
 
-        if (UserId == Guid.Empty)
-            throw new ArgumentException("UserId cannot be empty", nameof(UserId));
+        if (UserId.HasValue && UserId.Value == Guid.Empty)
+            throw new ArgumentException("UserId cannot be empty when provided", nameof(UserId));
 
         if (EndDate <= InitDate)
             throw new ArgumentException("EndDate must be after InitDate", nameof(EndDate));

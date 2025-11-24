@@ -129,4 +129,69 @@ public class AuthController : ControllerBase
             return StatusCode(500, new { message = "An internal server error occurred" });
         }
     }
+
+    /// <summary>
+    /// Revokes a refresh token (logout)
+    /// </summary>
+    /// <param name="request">Refresh token request</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>Success status</returns>
+    [HttpPost("logout")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Logout([FromBody] RefreshTokenRequestDto request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (string.IsNullOrWhiteSpace(request.RefreshToken))
+                return BadRequest(new { message = "Refresh token is required" });
+
+            var result = await _authService.RevokeTokenAsync(request.RefreshToken, cancellationToken);
+            
+            if (result)
+                return Ok(new { message = "Token revoked successfully" });
+            
+            return BadRequest(new { message = "Invalid or already revoked token" });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred during logout");
+            return StatusCode(500, new { message = "An internal server error occurred" });
+        }
+    }
+
+    /// <summary>
+    /// Revokes all refresh tokens for the authenticated user
+    /// </summary>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>Success status</returns>
+    [HttpPost("logout-all")]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> LogoutAll(CancellationToken cancellationToken)
+    {
+        try
+        {
+            var userIdClaim = User.FindFirst("userId")?.Value ?? User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            
+            if (string.IsNullOrWhiteSpace(userIdClaim) || !Guid.TryParse(userIdClaim, out var userId))
+                return Unauthorized(new { message = "Invalid user token" });
+
+            var result = await _authService.RevokeAllUserTokensAsync(userId, cancellationToken);
+            
+            if (result)
+                return Ok(new { message = "All tokens revoked successfully" });
+            
+            return BadRequest(new { message = "Failed to revoke tokens" });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred during logout all");
+            return StatusCode(500, new { message = "An internal server error occurred" });
+        }
+    }
 }

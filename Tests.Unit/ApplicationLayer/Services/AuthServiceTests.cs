@@ -12,6 +12,7 @@ namespace Tests.Unit.ApplicationLayer.Services;
 public class AuthServiceTests
 {
     private readonly Mock<IUserRepository> _userRepositoryMock;
+    private readonly Mock<IRefreshTokenRepository> _refreshTokenRepositoryMock;
     private readonly Mock<IPasswordHasher> _passwordHasherMock;
     private readonly Mock<ITokenService> _tokenServiceMock;
     private readonly IAuthService _authService;
@@ -19,11 +20,13 @@ public class AuthServiceTests
     public AuthServiceTests()
     {
         _userRepositoryMock = new Mock<IUserRepository>();
+        _refreshTokenRepositoryMock = new Mock<IRefreshTokenRepository>();
         _passwordHasherMock = new Mock<IPasswordHasher>();
         _tokenServiceMock = new Mock<ITokenService>();
 
         _authService = new AuthService(
             _userRepositoryMock.Object,
+            _refreshTokenRepositoryMock.Object,
             _passwordHasherMock.Object,
             _tokenServiceMock.Object
         );
@@ -53,9 +56,13 @@ public class AuthServiceTests
             .Setup(x => x.VerifyPassword(password, user.Password.Hash))
             .Returns(true);
 
+        _refreshTokenRepositoryMock
+            .Setup(x => x.RevokeAllUserTokensAsync(user.Id, It.IsAny<CancellationToken>()))
+            .Returns(Task.CompletedTask);
+
         _tokenServiceMock
-            .Setup(x => x.GenerateTokens(user))
-            .Returns(tokenResult);
+            .Setup(x => x.GenerateTokensAsync(user, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(tokenResult);
 
         // Act
         var result = await _authService.LoginAsync(request);
@@ -204,17 +211,31 @@ public class AuthServiceTests
             ExpiresAt = DateTime.UtcNow.AddHours(1)
         };
 
+        var storedRefreshToken = new RefreshToken(
+            userId,
+            refreshToken,
+            DateTime.UtcNow.AddDays(7)
+        );
+
         _tokenServiceMock
-            .Setup(x => x.ValidateRefreshToken(refreshToken))
-            .Returns(userId.ToString());
+            .Setup(x => x.ValidateRefreshTokenAsync(refreshToken, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(userId.ToString());
+
+        _refreshTokenRepositoryMock
+            .Setup(x => x.GetByTokenAsync(refreshToken, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(storedRefreshToken);
 
         _userRepositoryMock
             .Setup(x => x.GetByIdAsync(userId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(user);
 
         _tokenServiceMock
-            .Setup(x => x.GenerateTokens(user))
-            .Returns(tokenResult);
+            .Setup(x => x.GenerateTokensAsync(user, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(tokenResult);
+
+        _refreshTokenRepositoryMock
+            .Setup(x => x.UpdateAsync(It.IsAny<RefreshToken>(), It.IsAny<CancellationToken>()))
+            .Returns(Task.CompletedTask);
 
         // Act
         var result = await _authService.RefreshTokenAsync(refreshToken);
@@ -232,8 +253,8 @@ public class AuthServiceTests
         var refreshToken = "invalid_refresh_token";
 
         _tokenServiceMock
-            .Setup(x => x.ValidateRefreshToken(refreshToken))
-            .Returns((string?)null);
+            .Setup(x => x.ValidateRefreshTokenAsync(refreshToken, It.IsAny<CancellationToken>()))
+            .ReturnsAsync((string?)null);
 
         // Act & Assert
         await Assert.ThrowsAsync<UnauthorizedAccessException>(
@@ -248,9 +269,19 @@ public class AuthServiceTests
         var refreshToken = "valid_refresh_token";
         var userId = Guid.NewGuid();
 
+        var storedRefreshToken = new RefreshToken(
+            userId,
+            refreshToken,
+            DateTime.UtcNow.AddDays(7)
+        );
+
         _tokenServiceMock
-            .Setup(x => x.ValidateRefreshToken(refreshToken))
-            .Returns(userId.ToString());
+            .Setup(x => x.ValidateRefreshTokenAsync(refreshToken, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(userId.ToString());
+
+        _refreshTokenRepositoryMock
+            .Setup(x => x.GetByTokenAsync(refreshToken, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(storedRefreshToken);
 
         _userRepositoryMock
             .Setup(x => x.GetByIdAsync(userId, It.IsAny<CancellationToken>()))

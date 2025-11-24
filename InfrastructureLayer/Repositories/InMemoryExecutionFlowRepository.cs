@@ -189,27 +189,27 @@ public class InMemoryExecutionFlowRepository : IExecutionFlowRepository
                         {
                             ""id"": ""q-4-2"",
                             ""order"": 2,
-                            ""title"": ""Controle de produtos utilizados"",
-                            ""subtitle"": ""Selecione os produtos e informe a quantidade"",
-                            ""description"": ""Registre os produtos utilizados durante o procedimento e suas quantidades"",
+                            ""title"": ""Controle de insumos utilizados"",
+                            ""subtitle"": ""Selecione os insumos e informe a quantidade"",
+                            ""description"": ""Registre os insumos utilizados durante o procedimento e suas quantidades"",
                             ""type"": 6,
                             ""options"": [
                                 {
                                     ""id"": ""opt-stock-1"",
-                                    ""title"": ""Protetor solar FPS 80"",
-                                    ""value"": ""c50e8400-e29b-41d4-a716-446655440001"",
+                                    ""title"": ""Luvas"",
+                                    ""value"": ""d50e8400-e29b-41d4-a716-446655440001"",
                                     ""enableExtraAnswer"": false
                                 },
                                 {
                                     ""id"": ""opt-stock-2"",
-                                    ""title"": ""Vitamina C Sérum"",
-                                    ""value"": ""c50e8400-e29b-41d4-a716-446655440002"",
+                                    ""title"": ""Algodão"",
+                                    ""value"": ""d50e8400-e29b-41d4-a716-446655440002"",
                                     ""enableExtraAnswer"": false
                                 },
                                 {
                                     ""id"": ""opt-stock-3"",
-                                    ""title"": ""Hidratante com ceramidas"",
-                                    ""value"": ""c50e8400-e29b-41d4-a716-446655440003"",
+                                    ""title"": ""Gaze"",
+                                    ""value"": ""d50e8400-e29b-41d4-a716-446655440003"",
                                     ""enableExtraAnswer"": false
                                 }
                             ],

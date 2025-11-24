@@ -63,10 +63,11 @@ public class InMemoryNotificationRepository : INotificationRepository
         _notifications[notif1.Id] = notif1;
 
         var notif2 = new Notification(
-            "Nova promoção disponível",
-            "Aproveite 20% de desconto em todos os serviços estéticos até o final do mês.",
-            "promotion-icon"
+            "Negociação finalizada",
+            "Consulte suas estatísticas e resultados para verificar o comissionamento previsto.",
+            "negotiation-icon"
         );
+
         _notifications[notif2.Id] = notif2;
     }
 

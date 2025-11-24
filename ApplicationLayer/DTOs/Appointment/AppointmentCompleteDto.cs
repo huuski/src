@@ -12,7 +12,7 @@ public class AppointmentCompleteDto
     public Guid CustomerId { get; set; }
     
     [JsonPropertyName("userId")]
-    public Guid UserId { get; set; }
+    public Guid? UserId { get; set; }
     
     [JsonPropertyName("initDate")]
     public DateTime InitDate { get; set; }

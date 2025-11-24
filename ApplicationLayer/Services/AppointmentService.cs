@@ -74,9 +74,9 @@ public class AppointmentService : IAppointmentService
         if (dto == null)
             throw new ArgumentNullException(nameof(dto));
 
-        // Validate UserId explicitly
-        if (dto.UserId == Guid.Empty)
-            throw new ArgumentException("UserId cannot be empty", nameof(dto.UserId));
+        // Validate UserId if provided (it's optional)
+        if (dto.UserId.HasValue && dto.UserId.Value == Guid.Empty)
+            throw new ArgumentException("UserId cannot be empty when provided", nameof(dto.UserId));
 
         var appointment = new DomainLayer.Entities.Appointment(
             dto.CustomerId,
@@ -102,7 +102,8 @@ public class AppointmentService : IAppointmentService
         appointment.Update(
             dto.InitDate,
             dto.EndDate,
-            dto.Status
+            dto.Status,
+            dto.UserId
         );
 
         var updatedAppointment = await _appointmentRepository.UpdateAsync(appointment, cancellationToken);

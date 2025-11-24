@@ -1,0 +1,29 @@
+### Test Login with Marco Uski credentials
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "marco.uski@huuski.com",
+    "password": "Senha123!"
+}
+
+### Test Refresh Token (use the refreshToken from login response)
+POST http://localhost:5000/api/auth/refresh
+Content-Type: application/json
+
+{
+    "refreshToken": "PASTE_REFRESH_TOKEN_HERE"
+}
+
+### Test Logout (use the refreshToken from login response)
+POST http://localhost:5000/api/auth/logout
+Content-Type: application/json
+
+{
+    "refreshToken": "PASTE_REFRESH_TOKEN_HERE"
+}
+
+### Test Logout All (requires Authorization header with accessToken)
+POST http://localhost:5000/api/auth/logout-all
+Authorization: Bearer PASTE_ACCESS_TOKEN_HERE
+

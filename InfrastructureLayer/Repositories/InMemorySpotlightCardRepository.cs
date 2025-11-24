@@ -47,8 +47,8 @@ public class InMemorySpotlightCardRepository : ISpotlightCardRepository
             new DateTime(2025, 1, 1),
             new DateTime(2025, 12, 31),
             "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=800&h=600&fit=crop&auto=format",
-            "Agendar Agora",
-            "https://example.com/agendamento"
+            "Ver mais detalhes",
+            "https://www.youtube.com/watch?v=urkuHAqwgFc&t=293s"
         );
         _spotlightCards[card1.Id] = card1;
 
@@ -60,8 +60,8 @@ public class InMemorySpotlightCardRepository : ISpotlightCardRepository
             new DateTime(2025, 1, 15),
             new DateTime(2025, 12, 31),
             "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&h=600&fit=crop&auto=format",
-            "Ver Produtos",
-            "https://example.com/produtos"
+            "Ver mais detalhes",
+            "https://www.youtube.com/watch?v=urkuHAqwgFc&t=293s"
         );
         _spotlightCards[card2.Id] = card2;
     }

@@ -55,19 +55,6 @@ public class InMemoryReminderRepository : IReminderRepository
 
     private void InitializeDefaultReminders()
     {
-        var reminder1 = new Reminder(
-            "Consulta agendada",
-            "Você tem uma consulta agendada para amanhã às 14:00",
-            DomainLayer.Enums.Priority.High
-        );
-        _reminders[reminder1.Id] = reminder1;
-
-        var reminder2 = new Reminder(
-            "Renovação de produto",
-            "Seu creme anti-idade está acabando. Considere renovar seu estoque.",
-            DomainLayer.Enums.Priority.Normal
-        );
-        _reminders[reminder2.Id] = reminder2;
     }
 
     public Task<Reminder?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)

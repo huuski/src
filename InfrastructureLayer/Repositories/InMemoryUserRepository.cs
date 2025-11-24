@@ -64,7 +64,7 @@ public class InMemoryUserRepository : IUserRepository
                 complement: "Apto 45"
             ),
             phoneNumber: PhoneNumber.Create("+55 11 98765-4321"),
-            password: Password.FromHash(passwordHasher.HashPassword("#F1@m3ng0_$0_G@nh@_R0ub@d0_2025!")),
+            password: Password.FromHash(passwordHasher.HashPassword("Senha123!")),
             avatar: "https://m.media-amazon.com/images/M/MV5BMTk4MDM0MDUzM15BMl5BanBnXkFtZTcwOTI4MzU1Mw@@._V1_FMjpg_UX1000_.jpg"
         );
 

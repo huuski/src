@@ -64,7 +64,7 @@ public class InMemoryProductRepository : IProductRepository
             "Protetor solar facial FPS 80 de alta proteção, toque seco e não oleoso",
             DomainLayer.Enums.ProductCategory.Cosmetic,
             95.00m,
-            "https://example.com/images/protetor-solar-fps80.jpg"
+            "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&h=600&fit=crop&q=80"
         );
         if (idProperty != null && idProperty.CanWrite)
         {
@@ -79,7 +79,7 @@ public class InMemoryProductRepository : IProductRepository
             "Sérum facial com vitamina C pura para clareamento, uniformização do tom e ação antioxidante",
             DomainLayer.Enums.ProductCategory.Cosmetic,
             120.00m,
-            "https://example.com/images/vitamina-c-serum.jpg"
+            "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&h=600&fit=crop&q=80"
         );
         if (idProperty != null && idProperty.CanWrite)
         {
@@ -94,7 +94,7 @@ public class InMemoryProductRepository : IProductRepository
             "Hidratante facial com ceramidas para restauração da barreira cutânea e hidratação intensa",
             DomainLayer.Enums.ProductCategory.Cosmetic,
             85.50m,
-            "https://example.com/images/hidratante-ceramidas.jpg"
+            "https://images.unsplash.com/photo-1556228720-195a67e2c9de?w=800&h=600&fit=crop&q=80"
         );
         if (idProperty != null && idProperty.CanWrite)
         {
@@ -109,7 +109,7 @@ public class InMemoryProductRepository : IProductRepository
             "Suplemento de colágeno hidrolisado em pó para fortalecimento da pele, unhas e cabelos",
             DomainLayer.Enums.ProductCategory.Supplement,
             75.00m,
-            "https://example.com/images/suplemento-colageno.jpg"
+            "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&h=600&fit=crop&q=80"
         );
         if (idProperty != null && idProperty.CanWrite)
         {
@@ -124,7 +124,7 @@ public class InMemoryProductRepository : IProductRepository
             "Suplemento de melatonina em cápsulas para regulação do sono e melhora da qualidade do descanso",
             DomainLayer.Enums.ProductCategory.Supplement,
             45.90m,
-            "https://example.com/images/melatonina.jpg"
+            "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&h=600&fit=crop&q=80"
         );
         if (idProperty != null && idProperty.CanWrite)
         {

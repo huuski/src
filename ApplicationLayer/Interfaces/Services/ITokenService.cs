@@ -11,7 +11,7 @@ public class TokenResult
 
 public interface ITokenService
 {
-    TokenResult GenerateTokens(User user);
-    string? ValidateRefreshToken(string refreshToken);
+    Task<TokenResult> GenerateTokensAsync(User user, CancellationToken cancellationToken = default);
+    Task<string?> ValidateRefreshTokenAsync(string refreshToken, CancellationToken cancellationToken = default);
     Guid? GetUserIdFromToken(string token);
 }

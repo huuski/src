@@ -8,15 +8,18 @@ namespace ApplicationLayer.Services;
 public class AuthService : IAuthService
 {
     private readonly IUserRepository _userRepository;
+    private readonly IRefreshTokenRepository _refreshTokenRepository;
     private readonly IPasswordHasher _passwordHasher;
     private readonly ITokenService _tokenService;
 
     public AuthService(
         IUserRepository userRepository,
+        IRefreshTokenRepository refreshTokenRepository,
         IPasswordHasher passwordHasher,
         ITokenService tokenService)
     {
         _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+        _refreshTokenRepository = refreshTokenRepository ?? throw new ArgumentNullException(nameof(refreshTokenRepository));
         _passwordHasher = passwordHasher ?? throw new ArgumentNullException(nameof(passwordHasher));
         _tokenService = tokenService ?? throw new ArgumentNullException(nameof(tokenService));
     }
@@ -36,7 +39,10 @@ public class AuthService : IAuthService
         if (!_passwordHasher.VerifyPassword(request.Password, user.Password.Hash))
             throw new UnauthorizedAccessException("Invalid email or password");
 
-        var tokens = _tokenService.GenerateTokens(user);
+        // Revoke all existing refresh tokens for this user (optional: for security, only allow one active session)
+        await _refreshTokenRepository.RevokeAllUserTokensAsync(user.Id, cancellationToken);
+
+        var tokens = await _tokenService.GenerateTokensAsync(user, cancellationToken);
 
         return new LoginResponseDto
         {
@@ -81,14 +87,44 @@ public class AuthService : IAuthService
         if (string.IsNullOrWhiteSpace(refreshToken))
             throw new ArgumentException("Refresh token is required", nameof(refreshToken));
 
-        var userIdString = _tokenService.ValidateRefreshToken(refreshToken);
+        // Validate refresh token and get stored token
+        var userIdString = await _tokenService.ValidateRefreshTokenAsync(refreshToken, cancellationToken);
         if (userIdString == null || !Guid.TryParse(userIdString, out var userId))
-            throw new UnauthorizedAccessException("Invalid refresh token");
+            throw new UnauthorizedAccessException("Invalid or expired refresh token");
+
+        var storedToken = await _refreshTokenRepository.GetByTokenAsync(refreshToken, cancellationToken);
+        if (storedToken == null || !storedToken.IsActive)
+            throw new UnauthorizedAccessException("Invalid or revoked refresh token");
 
         var user = await _userRepository.GetByIdAsync(userId, cancellationToken);
         if (user == null)
             throw new UnauthorizedAccessException("User not found");
 
-        return _tokenService.GenerateTokens(user);
+        // Token rotation: revoke old token and generate new tokens
+        var newTokens = await _tokenService.GenerateTokensAsync(user, cancellationToken);
+        storedToken.Revoke(newTokens.RefreshToken);
+        await _refreshTokenRepository.UpdateAsync(storedToken, cancellationToken);
+
+        return newTokens;
+    }
+
+    public async Task<bool> RevokeTokenAsync(string refreshToken, CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(refreshToken))
+            return false;
+
+        var storedToken = await _refreshTokenRepository.GetByTokenAsync(refreshToken, cancellationToken);
+        if (storedToken == null || storedToken.IsRevoked)
+            return false;
+
+        storedToken.Revoke();
+        await _refreshTokenRepository.UpdateAsync(storedToken, cancellationToken);
+        return true;
+    }
+
+    public async Task<bool> RevokeAllUserTokensAsync(Guid userId, CancellationToken cancellationToken = default)
+    {
+        await _refreshTokenRepository.RevokeAllUserTokensAsync(userId, cancellationToken);
+        return true;
     }
 }
