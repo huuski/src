@@ -1,10 +1,12 @@
 using ApplicationLayer.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PresentationLayer.Controllers;
 
 [ApiController]
 [Route("api/app")]
+[AllowAnonymous] // Allow anonymous access for demo/testing purposes
 public class AppController : ControllerBase
 {
     private readonly IResetService _resetService;

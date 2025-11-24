@@ -9,3 +9,4 @@
 /Users/huuski/projects/src/DomainLayer/obj/Debug/net9.0/refint/DomainLayer.dll
 /Users/huuski/projects/src/DomainLayer/obj/Debug/net9.0/DomainLayer.pdb
 /Users/huuski/projects/src/DomainLayer/obj/Debug/net9.0/ref/DomainLayer.dll
+/Users/huuski/projects/src/DomainLayer/obj/Debug/net9.0/DomainLayer.sourcelink.json

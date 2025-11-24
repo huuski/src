@@ -34,3 +34,4 @@
 /Users/huuski/projects/src/InfrastructureLayer/bin/Debug/net9.0/LatoFont/Lato-Thin.ttf
 /Users/huuski/projects/src/InfrastructureLayer/bin/Debug/net9.0/LatoFont/Lato-ThinItalic.ttf
 /Users/huuski/projects/src/InfrastructureLayer/bin/Debug/net9.0/LatoFont/OFL.txt
+/Users/huuski/projects/src/InfrastructureLayer/obj/Debug/net9.0/InfrastructureLayer.sourcelink.json

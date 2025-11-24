@@ -1,10 +1,12 @@
 using ApplicationLayer.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PresentationLayer.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[AllowAnonymous] // Allow anonymous access for testing purposes
 public class TestEmailController : ControllerBase
 {
     private readonly IEmailService _emailService;

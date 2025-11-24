@@ -1,11 +1,13 @@
 using ApplicationLayer.DTOs.Auth;
 using ApplicationLayer.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PresentationLayer.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[AllowAnonymous] // Allow anonymous access to authentication endpoints
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;

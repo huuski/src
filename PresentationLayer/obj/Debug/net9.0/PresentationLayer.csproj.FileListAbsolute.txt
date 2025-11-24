@@ -72,3 +72,4 @@
 /Users/huuski/projects/src/PresentationLayer/bin/Debug/net9.0/runtimes/osx-x64/native/libQuestPdfSkia.dylib
 /Users/huuski/projects/src/PresentationLayer/bin/Debug/net9.0/runtimes/win-x64/native/QuestPdfSkia.dll
 /Users/huuski/projects/src/PresentationLayer/bin/Debug/net9.0/runtimes/win-x86/native/QuestPdfSkia.dll
+/Users/huuski/projects/src/PresentationLayer/obj/Debug/net9.0/PresentationLayer.sourcelink.json

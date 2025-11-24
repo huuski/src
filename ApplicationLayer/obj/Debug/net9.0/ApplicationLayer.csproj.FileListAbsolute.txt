@@ -13,3 +13,4 @@
 /Users/huuski/projects/src/ApplicationLayer/obj/Debug/net9.0/refint/ApplicationLayer.dll
 /Users/huuski/projects/src/ApplicationLayer/obj/Debug/net9.0/ApplicationLayer.pdb
 /Users/huuski/projects/src/ApplicationLayer/obj/Debug/net9.0/ref/ApplicationLayer.dll
+/Users/huuski/projects/src/ApplicationLayer/obj/Debug/net9.0/ApplicationLayer.sourcelink.json
